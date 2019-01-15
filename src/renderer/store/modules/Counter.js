@@ -17,8 +17,8 @@ const actions = {
     commit('INCREMENT_MAIN_COUNTER')
   }
 }
-
 export default {
+  namespace: true,
   state,
   mutations,
   actions

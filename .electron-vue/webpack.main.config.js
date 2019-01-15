@@ -75,7 +75,8 @@ if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
     new BabiliWebpackPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"production"',
+      'process.env.ROOTURL': process.env.ROOTURL || ''
     })
   )
 }

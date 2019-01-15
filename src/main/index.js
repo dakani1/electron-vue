@@ -24,7 +24,6 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000,
-    backgroundColor: '#2e2c29',
     transparent: true,
     titleBarStyle: 'hiddenInset'
   })

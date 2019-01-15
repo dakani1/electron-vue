@@ -3,32 +3,58 @@
     <img  style="-webkit-app-region: drag" id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
       <div class="left-side">
+        {{osInfo}} 
         <span class="title" @click="open(url)">
           Welcome to your new project!
         </span>
+        {{main}}
         <a :href="url" target="_blank">外部链接</a>
         <div class="block">
           <span class="demonstration">默认</span>
-          <el-date-picker
-            v-model="value1"
-            type="date"
-            placeholder="选择日期">
-          </el-date-picker>
+          123 <br>
+          {{topicData}}
         </div>
       </div>
+      
     </main>
+    <webview src="https://www.baidu.com/"
+      style="width: 100%;height: 300px;"></webview>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
+    computed: {
+      ...mapState('operate', ['main'])
+    },
     data () {
       return {
         url: 'https://en.wikipedia.org/wiki/A',
-        value1: ''
+        value1: '',
+        osInfo: 'dafa',
+        topicData: ''
       }
     },
+    mounted () {
+      // console.log(this.$store)
+      // this.getAllTopics()
+      // this.$store.commit('change', 55)
+    },
     methods: {
+      getAllTopics () {
+        this.$store.dispatch('FETCH_GET_ALL', {
+          api: 'topics',
+          data: {
+            page: 1,
+            tab: 'job',
+            limit: 100,
+            mdrender: true
+          }
+        }).then((res) => {
+          this.topicData = res
+        })
+      },
       open (link) {
         // this.$electron.shell.openExternal(link)
         this.$electron.shell.openItem(link)
