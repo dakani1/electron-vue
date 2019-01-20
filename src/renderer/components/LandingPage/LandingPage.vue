@@ -7,7 +7,8 @@
         <span class="title" @click="open(url)">
           Welcome to your new project!
         </span>
-        {{main}}
+        <!-- <p>main: {{getMain}}  ::mainEnd</p> -->
+        <p>getMain: {{ getMain }}</p>
         <a :href="url" target="_blank">外部链接</a>
         <div class="block">
           <span class="demonstration">默认</span>
@@ -23,10 +24,10 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     computed: {
-      ...mapState('operate', ['main'])
+      ...mapGetters(['getMain'])
     },
     data () {
       return {
@@ -40,8 +41,12 @@
       // console.log(this.$store)
       // this.getAllTopics()
       // this.$store.commit('change', 55)
+      console.log(this.$store.dispatch)
+      this.$store.dispatch('fetalldaa')
+      console.log(222)
     },
     methods: {
+      // ...mapActions(['FETCH_GET_ALLdafa']),
       getAllTopics () {
         this.$store.dispatch('FETCH_GET_ALL', {
           api: 'topics',
@@ -69,7 +74,6 @@
 
   #wrapper {
     box-sizing: border-box;
-    border: 1px solid red;
     background:
       radial-gradient(
         ellipse at top left,

@@ -1,12 +1,12 @@
-import axios from 'axios'
-const baseUrl = process.env.ROOTURL || ''
-axios.create({
-  baseURL: baseUrl,
-  timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+// import axios from 'axios'
+// const baseUrl = process.env.ROOTURL || ''
+// axios.create({
+//   baseURL: baseUrl,
+//   timeout: 5000,
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// })
 // const oApi = {
 //   'topics': '/topics'
 // }
@@ -33,7 +33,7 @@ axios.create({
 //   })
 // }
 
-const state = {
+let state = {
   main: 55,
   allSort: {
     ask: 'ask',
@@ -42,30 +42,22 @@ const state = {
     dev: 'dev'
   }
 }
-const getters = {
+let getters = {
   allSort (state) {
     return state.allSort
   },
-  main (state) {
+  getMain (state) {
     return state.main
   }
 }
-const mutations = {
+let mutations = {
   change ({commit, state}, data) {
     state.main = data
   }
 }
 const actions = {
-  FETCH_GET_ALL ({commit, state}, data) {
-    console.log(5666666666666)
-    return new Promise((resolve, reject) => {
-      resolve(6666)
-      // _get(data).then((res) => {
-      //   resolve(res)
-      // }).catch((err) => {
-      //   resolve(err)
-      // })
-    })
+  fetalldaa () {
+    console.log(11111)
   }
 }
 export default {
