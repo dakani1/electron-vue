@@ -12,7 +12,6 @@
 // })
 const operate = require('./operate.js').default
 const counter = require('./Counter.js').default
-console.log(operate)
 export default {
   operate,
   counter

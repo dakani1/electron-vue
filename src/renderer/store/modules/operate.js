@@ -1,37 +1,29 @@
-// import axios from 'axios'
-// const baseUrl = process.env.ROOTURL || ''
-// axios.create({
-//   baseURL: baseUrl,
-//   timeout: 5000,
-//   headers: {
-//     'Content-Type': 'application/json'
-//   }
-// })
-// const oApi = {
-//   'topics': '/topics'
-// }
+import axios from 'axios'
+const baseUrl = process.env.ROOTURL || ''
+const Axios = axios.create({
+  baseURL: baseUrl,
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+const oApi = {
+  'topics': '/api/v1/topics'
+}
 
-// function _get ({api, data}) {
-//   console.log(3333333333333)
-//   return new Promise((resolve, reject) => {
-//     const url = oApi[api]
-//     const allJson = {
-//       url,
-//       params: data
-//     }
-//     if (data.headers) {
-//       Object.assign(allJson, {headers: data.headers}, {})
-//     }
-//     console.log(111111111111)
-//     axios(allJson).then((res) => {
-//       resolve(res)
-//       console.log(4444444444)
-//     }).catch((error) => {
-//       reject(error)
-//       console.log(555555555)
-//     })
-//   })
-// }
+function _get ({url, data}) {
+  return new Promise((resolve, reject) => {
+    const allJson = {
+      url,
+      params: data
+    }
+    Axios(allJson).then((res) => {
+      resolve(res)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
 
 let state = {
   main: 55,
@@ -56,8 +48,20 @@ let mutations = {
   }
 }
 const actions = {
-  fetalldaa () {
-    console.log(11111)
+  FETCH_GET_ALL ({commit, state}, queryData) {
+    return new Promise((resolve, reject) => {
+      const url = oApi[queryData.api]
+      const data = queryData.data
+      _get({url, data}).then((res) => {
+        if (res.status === 200) {
+          return resolve(res.data)
+        } else {
+          return reject(res)
+        }
+      }).catch((err) => {
+        return reject(err)
+      })
+    })
   }
 }
 export default {
