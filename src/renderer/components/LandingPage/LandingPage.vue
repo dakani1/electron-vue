@@ -10,26 +10,31 @@
           theme="dark"
           :inlineCollapsed="collapsed"
         >
-          <a-menu-item v-for="(item, key) in allSort" :key="key" @click="getAllTopics(item)">
+          <a-menu-item v-for="(item, key) in allSort" :key="key" @click="getAllTopics(key)">
             <a-icon type="pie-chart" />
             <span>{{item}}</span>
           </a-menu-item>
         </a-menu>
       </div>
       <div class="content-main">
-        <a-list
-          itemLayout="horizontal"
-          :dataSource="topicData"
-        >
-          <a-list-item slot="renderItem" slot-scope="item, index">
-            <a-list-item-meta
-              :description="`${item.reply_count}/${item.visit_count}`"
-            >
-              <a slot="title" href="">{{item.title}}</a>
-              <a-avatar slot="avatar" :src="item.author.avatar_url" />
-            </a-list-item-meta>
-          </a-list-item>
-        </a-list>
+        <div class="data-list">
+          <a-list
+            itemLayout="horizontal"
+            :dataSource="topicData"
+          >
+            <a-list-item slot="renderItem" slot-scope="item, index">
+              <a-list-item-meta
+                :description="`${item.reply_count}/${item.visit_count}`"
+              >
+                <a slot="title" href="">{{item.title}}</a>
+                <a-avatar slot="avatar" :src="item.author.avatar_url" />
+              </a-list-item-meta>
+            </a-list-item>
+          </a-list>
+        </div>
+        <div class="data-pagination">
+          <a-pagination :defaultCurrent="1" :total="500" :hideOnSinglePage='true'/>
+        </div>
       </div>
     </main>
   </div>
@@ -108,6 +113,11 @@
       .content-main{
         width: 85%;
         padding: 15px;
+        .data-list{}
+        .data-pagination{
+          text-align: left;
+          margin: 15px 0;
+        }
       }
     }
   }

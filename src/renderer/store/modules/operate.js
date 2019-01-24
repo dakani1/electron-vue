@@ -28,10 +28,10 @@ function _get ({url, data}) {
 let state = {
   main: 55,
   allSort: {
-    ask: 'ask',
-    share: 'share',
-    job: 'job',
-    dev: 'dev'
+    ask: '问答',
+    share: '分享',
+    job: '招聘',
+    dev: '客户端测试'
   }
 }
 let getters = {
