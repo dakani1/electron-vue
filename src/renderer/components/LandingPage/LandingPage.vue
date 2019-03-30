@@ -33,25 +33,38 @@
           </a-list>
         </div>
         <div class="data-pagination">
-          <a-pagination :defaultCurrent="1" :total="500" :hideOnSinglePage='true'/>
+          <a-pagination 
+            :defaultCurrent="1" 
+            :pageSize="pageInfo.pageSize"
+            :total="pageInfo.dataTotal" 
+            :hideOnSinglePage='true'
+            @change="changePage"
+          />
         </div>
       </div>
     </main>
+    getAllSort: {{getAllSort}}  <br>
+    {{test}}
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
   export default {
     computed: {
-      ...mapGetters(['allSort'])
+      ...mapGetters('operate', ['getAllSort']),
+      dataSort() {
+        return this.$store.state.counter.test
+      }
     },
     data () {
       return {
         topicData: '',
+        topicType: 'ask',
         pageInfo: {
-          currentIdx: 0,
-          pageCount: 10
+          pageCount: 8,
+          pageSize: 10,
+          dataTotal: 5000
         }
       }
     },
@@ -59,13 +72,20 @@
       this.getAllTopics()
     },
     methods: {
+      changePage(index, pagesize) {
+        this.getAllTopics(this.topicType, index)
+      },
       // ...mapActions(['FETCH_GET_ALLdafa']),
-      getAllTopics (type) {
+      getAllTopics (type, index) {
+        if (!index) {
+          index = 1
+        }
+        this.topicType = type || this.topicType
         this.$store.dispatch('FETCH_GET_ALL', {
           api: 'topics',
           data: {
-            page: this.pageInfo.currentIdx,
-            tab: type || 'ask',
+            page: index || 1,
+            tab: this.topicType,
             limit: this.pageInfo.pageCount,
             mdrender: true
           }
@@ -107,11 +127,11 @@
       flex-direction: row;
       justify-content: space-between;
       .navList{
-        width: 15%;
+        width: 240px;
         display: block;
       }
       .content-main{
-        width: 85%;
+        width: 100%;
         padding: 15px;
         .data-list{}
         .data-pagination{

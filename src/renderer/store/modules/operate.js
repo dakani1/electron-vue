@@ -1,5 +1,6 @@
 import axios from 'axios'
 const baseUrl = process.env.ROOTURL || ''
+let token = '9800be4a-154f-4db7-b498-f5dfaff60f07'
 const Axios = axios.create({
   baseURL: baseUrl,
   timeout: 5000,
@@ -26,7 +27,7 @@ function _get ({url, data}) {
 }
 
 let state = {
-  main: 55,
+  main: 100,
   allSort: {
     ask: '问答',
     share: '分享',
@@ -35,11 +36,14 @@ let state = {
   }
 }
 let getters = {
-  allSort (state) {
-    return state.allSort
+  getAllSort (state) {
+    return 'allSort operate'
   },
   getMain (state) {
     return state.main
+  },
+  testGetter (state) {
+    return state.allSort
   }
 }
 let mutations = {
@@ -62,10 +66,15 @@ const actions = {
         return reject(err)
       })
     })
+  },
+  testAction ({ commit }) {
+    console.log(3333)
+    commit('counter/testMuta')
   }
+
 }
 export default {
-  namespace: true,
+  namespaced: true,
   state,
   getters,
   mutations,

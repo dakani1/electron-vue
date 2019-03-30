@@ -13,6 +13,6 @@
 const operate = require('./operate.js').default
 const counter = require('./Counter.js').default
 export default {
-  operate,
-  counter
+  counter,
+  operate
 }
