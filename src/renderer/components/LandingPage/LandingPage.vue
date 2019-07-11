@@ -32,6 +32,7 @@
             </a-list-item>
           </a-list>
         </div>
+        
         <div class="data-pagination">
           <a-pagination 
             :defaultCurrent="1" 
